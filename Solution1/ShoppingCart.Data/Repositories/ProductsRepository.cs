@@ -37,6 +37,17 @@ namespace ShoppingCart.Data.Repositories
             _context.SaveChanges();
         }
 
+
+        //Here we are getting the Id of the product and Hide in the database is going to be set to a value of
+        // 1 instead of 0 (ie true). Then, using _context, we are saving the changes in the database. A migration had
+        // to be carried out to update the database with the column hide in the Products Table.
+        public void HideProduct(Guid id)
+        {
+            var p = GetProduct(id);
+            p.hide = true;
+            _context.SaveChanges();
+        }
+
         public Product GetProduct(Guid id)
         { 
             return _context.Products.Include(x => x.Category).SingleOrDefault(x => x.Id == id);
@@ -44,7 +55,7 @@ namespace ShoppingCart.Data.Repositories
 
         public IQueryable<Product> GetProducts()
         { 
-            return _context.Products.Include(x=>x.Category);
+            return _context.Products.Include(x=>x.Category).Where(x=>x.hide==false);//"where" is getting all those products which have Hide set as false in the database.
         }
     }
 }

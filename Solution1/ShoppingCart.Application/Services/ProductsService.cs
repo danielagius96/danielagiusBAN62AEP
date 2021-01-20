@@ -48,6 +48,12 @@ namespace ShoppingCart.Application.Services
             _productsRepo.DeleteProduct(id);
         }
 
+        //Retrieve the Hide Id of the product and updating the product repository accordingly.
+        public void HideProduct(Guid id)
+        {
+            _productsRepo.HideProduct(id);
+        }
+
         public ProductViewModel GetProduct(Guid id)
         {
             var p = _productsRepo.GetProduct(id);

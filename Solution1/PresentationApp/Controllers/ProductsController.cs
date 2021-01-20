@@ -32,7 +32,7 @@ namespace PresentationApp.Controllers
                 var list = _prodService.GetProducts();
                 return View(list);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["Warning"] = "Failed to load the products. please try again later";
                 return RedirectToAction("Error", "Home");
@@ -40,23 +40,23 @@ namespace PresentationApp.Controllers
         }
 
 
-    /*    public IActionResult Next()
-        {
-            int batchNo = 0;
-            string page = HttpContext.Session.GetString("batchNo");
-            if (page == null){ batchNo = 0;  .... }
-            else
-            { batchNo = Convert.ToInt32(HttpContext.Session.GetString("batchNo"));
-                batchNo += 10;
+        /*    public IActionResult Next()
+            {
+                int batchNo = 0;
+                string page = HttpContext.Session.GetString("batchNo");
+                if (page == null){ batchNo = 0;  .... }
+                else
+                { batchNo = Convert.ToInt32(HttpContext.Session.GetString("batchNo"));
+                    batchNo += 10;
 
-              var list =  _prodService.GetProducts().Skip(batchNo).Take(10);
+                  var list =  _prodService.GetProducts().Skip(batchNo).Take(10);
 
-                HttpContext.Session.SetString("batchNo", batchNo.ToString());
-                return View("Index", list);
+                    HttpContext.Session.SetString("batchNo", batchNo.ToString());
+                    return View("Index", list);
+                }
+
             }
-           
-        }
-    */
+        */
 
         [HttpPost]
         public IActionResult Search(string keyword) //View you have to use a Form
@@ -64,7 +64,7 @@ namespace PresentationApp.Controllers
             var list = _prodService.GetProducts(keyword);
             return View("Index", list);
         }
-       
+
 
         public IActionResult Details(Guid id)
         {
@@ -75,11 +75,11 @@ namespace PresentationApp.Controllers
         //-------------------- ADD -----------------------------
 
         [HttpGet] //this will be called before loading the Create page
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             CreateModel model = new CreateModel();
-            
+
             var list = _catService.GetCategories();
             model.Categories = list.ToList();
 
@@ -95,7 +95,7 @@ namespace PresentationApp.Controllers
             {
                 if (data.File != null)
                 {
-                    if(data.File.Length > 0)
+                    if (data.File.Length > 0)
                     {
                         string newFilename = @"/Images/" + Guid.NewGuid() + System.IO.Path.GetExtension(data.File.FileName);
                         string absolutePath = _env.WebRootPath;
@@ -116,11 +116,11 @@ namespace PresentationApp.Controllers
                 TempData["feedback"] = "Product added successfully";
                 ModelState.Clear();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["warning"] = "Product was not added successfully. Check your inputs";
             }
-            
+
             var list = _catService.GetCategories();
             data.Categories = list.ToList();
 
@@ -133,10 +133,19 @@ namespace PresentationApp.Controllers
             _prodService.DeleteProduct(id);
 
             TempData["feedback"] = "product deleted successfully";  //ViewData should be changed to TempData
-           
+
             return RedirectToAction("Index");
         }
 
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Hide(Guid id)
+        {
+            _prodService.HideProduct(id);
+            TempData["feedback"] = "product hidden successfully";
+
+            return RedirectToAction("Index"); //creating the Hide method in the Product Controller, where the selected product ID to hide, is stored. 
+        }
 
 
 

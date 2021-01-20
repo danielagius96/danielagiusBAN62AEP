@@ -21,6 +21,9 @@
                 @if (User.IsInRole("Admin"))
                 {
                     <a href="Products/Delete?id=@p.Id" class="btn btn-danger" onclick="return window.confirm('Are you sure?')">Delete</a>
+
+                    <!--Added the button for hide when the user is an admin, on the Products page-->
+                    <a href="Products/Hide?id=@p.Id" class="btn btn-success" onclick="return window.confirm('Are you sure?')">Hide</a>
                 }
 
 
