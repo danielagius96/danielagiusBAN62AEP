@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel>
+@{
+    ViewData["Title"] = "LeatherCategory";
+}
+
+<h1>LeatherCategory</h1>
+
+<hr />
+<div>
+    @Html.Partial("SearchProductPartial")
+</div>
+
+<hr />
+
+
+<div class="container">
+    <div class="row">
+        @Html.Partial("ProductDisplayPartial", Model)
+    </div>
+</div>

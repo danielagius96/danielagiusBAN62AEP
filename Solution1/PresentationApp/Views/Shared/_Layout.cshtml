@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PresentationApp</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Maltese Cross</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,13 +28,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Support" asp-action="Contact">Contact Us</a>
                         </li>
+
+                        <!--Creating the categories filter in the website-->
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bracelet Categories</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="nav-link text-dark" asp-controller="Products" asp-action="LeatherCategory">Leather Bracelets</a></li>
+                                <li><a class="nav-link text-dark" asp-controller="Products" asp-action="RubberCategory">Rubber Bracelets</a></li>
+                                <li><a class="nav-link text-dark" asp-controller="Products" asp-action="WoodCategory">Wooden Bracelets</a></li>
+                            </ul>
+                        </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Products</a>
                         </li>
                         <!--Here we are making an if statement so that if the user is an admin, the option to add a new product will appear-->
-                        @if (User.IsInRole("Admin")){
+                        @if (User.IsInRole("Admin"))
+                        {
                             <li class="nav-item">
-                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Create">Add New Product</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Create">Add New Product</a>
                             </li>
                         }
                     </ul>

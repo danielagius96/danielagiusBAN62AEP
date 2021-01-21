@@ -57,6 +57,50 @@ namespace PresentationApp.Controllers
 
             }
         */
+        public IActionResult LeatherCategory()
+        {
+
+            try
+            {
+                var list = _prodService.GetProducts("3");
+                return View(list);
+            }
+            catch (Exception ex)
+            {
+                TempData["Warning"] = "Failed to load the products. please try again later";
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public IActionResult RubberCategory()
+        {
+
+            try
+            {
+                var list = _prodService.GetProducts("1");
+                return View(list);
+            }
+            catch (Exception ex)
+            {
+                TempData["Warning"] = "Failed to load the products. please try again later";
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public IActionResult WoodCategory()
+        {
+
+            try
+            {
+                var list = _prodService.GetProducts("2");
+                return View(list);
+            }
+            catch (Exception ex)
+            {
+                TempData["Warning"] = "Failed to load the products. please try again later";
+                return RedirectToAction("Error", "Home");
+            }
+        }
 
         [HttpPost]
         public IActionResult Search(string keyword) //View you have to use a Form
