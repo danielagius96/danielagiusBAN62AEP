@@ -6,34 +6,32 @@
 @foreach (var p in Model)
 {
 
-<div class="col-sm-6">
+    <div class="col-sm-6">
 
-    <div class="card " style="width: 18rem;">
+        <div class="card " style="width: 18rem;">
 
-        <img src="@p.ImageUrl" class="card-img-top image" alt="image" crossorigin="anonymous">
-
-
-        <div class="card-body">
-            <h5 class="card-title">@p.Name</h5>
-            <p class="card-text">€ @p.Price</p>
-
-            <a href="Products/Details?id=@p.Id" class="btn btn-primary">Details</a>
-
-            @if (User.IsInRole("Admin"))
-            {
-                <a href="Products/Delete?id=@p.Id" class="btn btn-danger" onclick="return window.confirm('Are you sure?')">Delete</a>
-
-                <!--Added the button for hide when the user is an admin, on the Products page-->
-                <a href="Products/Hide?id=@p.Id" class="btn btn-success" onclick="return window.confirm('Are you sure?')">Hide</a>
-            }
+            <img src="@p.ImageUrl" class="card-img-top image" alt="image" crossorigin="anonymous">
 
 
+            <div class="card-body">
+                <h5 class="card-title">@p.Name</h5>
+                <p class="card-text">€ @p.Price</p>
 
-            @*@Html.ActionLink("Details", "Details", new { id = p.Id }, new {@class="btn btn-primary"})*@
+                <a href="Products/Details?id=@p.Id" class="btn btn-primary">Details</a>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <a href="Products/Delete?id=@p.Id" class="btn btn-danger" onclick="return window.confirm('Are you sure?')">Delete</a>
+
+                    <!--Added the button for hide when the user is an admin, on the Products page-->
+                    <a href="Products/Hide?id=@p.Id" class="btn btn-success" onclick="return window.confirm('Are you sure?')">Hide</a>
+                }
+
+
+
+                @*@Html.ActionLink("Details", "Details", new { id = p.Id }, new {@class="btn btn-primary"})*@
+            </div>
         </div>
+        
     </div>
-    <!--Pagination done here using Tag helper above-->
-    <cs-pager cs-paging-pagenumber="4" cs-paging-totalitems="4" cs-paging-pagesize="1" cs-pagenumber-param="pageNum" asp-controller="Products" asp-action="Index" cs-pager-li-current-class="page-item active"
-cs-pager-li-other-class="page-item" cs-pager-li-non-active-class="page-item disabled" cs-pager-link-current-class="page-link" cs-pager-link-other-class="page-link"></cs-pager>
-</div>
 }

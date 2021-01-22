@@ -10,6 +10,7 @@ using PresentationApp.Models;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using cloudscribe.Pagination.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace PresentationApp.Controllers
 {
@@ -26,7 +27,7 @@ namespace PresentationApp.Controllers
         }
 
 
-        public IActionResult Index(int pageNum = 1, int pageSize = 1)
+        public IActionResult Index(int pageNum = 1, int pageSize = 3)
         {
 
             try
@@ -34,7 +35,15 @@ namespace PresentationApp.Controllers
                 //pagination here
                 int listProducts = (pageNum * pageSize) - pageSize;
                 var list = _prodService.GetProducts().Skip(listProducts).Take(pageSize);
-                return View(list);
+
+                var answer = new PagedResult<ProductViewModel>
+                {
+                    Data = list.AsNoTracking().ToList(),
+                    TotalItems = _prodService.GetProducts().Count(),
+                    PageNumber = pageNum,
+                    PageSize = pageSize
+                };
+                return View(answer);
             }
             catch (Exception ex)
             {

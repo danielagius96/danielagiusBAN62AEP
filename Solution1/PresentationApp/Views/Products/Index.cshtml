@@ -1,4 +1,8 @@
-﻿@model IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel>
+﻿@model cloudscribe.Pagination.Models.PagedResult<ShoppingCart.Application.ViewModels.ProductViewModel>
+<!--IEnumerable<ShoppingCart.Application.ViewModels.ProductViewModel>-->
+
+@addTagHelper *, cloudscribe.Web.Pagination
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -16,8 +20,12 @@
 
 <div class="container">
     <div class="row">
-        @Html.Partial("ProductDisplayPartial", Model)
+        @Html.Partial("ProductDisplayPartial", Model.Data)
     </div>
+
+    <!--Pagination done here using Tag helper above-->
+    <cs-pager cs-paging-pagenumber="Model.PageNumber" cs-paging-totalitems="Model.TotalItems" cs-paging-pagesize="Model.PageSize" cs-pagenumber-param="pageNum" asp-controller="Products" asp-action="Index" cs-pager-li-current-class="page-item active"
+              cs-pager-li-other-class="page-item" cs-pager-li-non-active-class="page-item disabled" cs-pager-link-current-class="page-link" cs-pager-link-other-class="page-link"></cs-pager>
 </div>
 
 
