@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using PresentationApp.Models;
 using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
+using cloudscribe.Pagination.Models;
 
 namespace PresentationApp.Controllers
 {
@@ -24,12 +25,15 @@ namespace PresentationApp.Controllers
             _env = env;
         }
 
-        public IActionResult Index()
+
+        public IActionResult Index(int pageNum = 1, int pageSize = 1)
         {
 
             try
             {
-                var list = _prodService.GetProducts();
+                //pagination here
+                int listProducts = (pageNum * pageSize) - pageSize;
+                var list = _prodService.GetProducts().Skip(listProducts).Take(pageSize);
                 return View(list);
             }
             catch (Exception ex)
@@ -38,8 +42,6 @@ namespace PresentationApp.Controllers
                 return RedirectToAction("Error", "Home");
             }
         }
-
-
         /*    public IActionResult Next()
             {
                 int batchNo = 0;

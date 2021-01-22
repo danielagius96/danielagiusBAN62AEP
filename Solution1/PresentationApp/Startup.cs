@@ -47,8 +47,8 @@ namespace PresentationApp
            
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-        
+            //for pagination
+            services.AddCloudscribePagination();
 
             DependencyContainer.RegisterServices(services,
                  Configuration.GetConnectionString("DefaultConnection")
