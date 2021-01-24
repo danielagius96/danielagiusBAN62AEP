@@ -4,11 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace PresentationApp.Controllers
 {
     public class OrdersController : Controller
     {
+        private readonly ILogger<OrdersController> _logger;
+        public OrdersController(ILogger<OrdersController> logger)
+        {
+            _logger = logger;
+        }
+
         [Authorize][HttpPost]
         public IActionResult Checkout()
         {
@@ -30,9 +37,20 @@ namespace PresentationApp.Controllers
             //>> orderdetail no.2 >> Panasonic mobile  qty: 1
 
 
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.Message); // log error 
+
+                TempData["Error"] = "An Error has been found";
+                return RedirectToAction("Error", "Home"); // Here the user is redirected to the home controller
+            }
 
 
-            return View();
+            
         }
     }
 }

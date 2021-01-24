@@ -3,6 +3,10 @@
 
 @addTagHelper *, cloudscribe.Web.Pagination
 
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 @foreach (var p in Model)
 {
 
@@ -27,11 +31,15 @@
                     <a href="Products/Hide?id=@p.Id" class="btn btn-success" onclick="return window.confirm('Are you sure?')">Hide</a>
                 }
 
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a href="#" class="btn btn-warning" onclick="">Add to cart</a>
 
+                }
 
                 @*@Html.ActionLink("Details", "Details", new { id = p.Id }, new {@class="btn btn-primary"})*@
             </div>
         </div>
-        
+
     </div>
 }

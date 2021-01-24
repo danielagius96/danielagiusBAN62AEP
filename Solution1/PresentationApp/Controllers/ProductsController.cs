@@ -27,7 +27,7 @@ namespace PresentationApp.Controllers
         }
 
 
-        public IActionResult Index(int pageNum = 1, int pageSize = 3)
+        public IActionResult Index(int pageNum = 1, int pageSize = 10)
         {
 
             try
